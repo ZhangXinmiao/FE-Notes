@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>网易云音乐banner动画</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            html,body {
+                width: 100%;
+            }
+            #banner-container {
+                width: 100%;
+                height: 200px;
+                margin-top: 600px;
+                background: grey;
+                overflow: auto;
+                white-space: nowrap;
+            }
+            #item-container {
+                display: inline-flex;
+            }
+            #banner-container .item {
+                width: 300px;
+                height: 180px;
+                margin: 10px;
+                background: blue;
+                display: inline-block;
+            }
+            #banner-container .more {
+                width: 100px;
+                height: 180px;
+                margin: 10px;
+                display: inline-block;
+                background: red;
+            }
+
+            @keyframes bounce {
+                50% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(100px);
+                }
+            }
+
+            .bounce {
+                animation: .5s ease-in 0s bounce forwards;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div id="banner-container">
+                <div id="item-container"> 
+                    <div class="item"></div>
+                    <div class="item"></div>
+                    <div class="item"></div>
+                    <div class="item"></div>
+                    <div class="item"></div>
+                    <div class="more"></div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var totalLen = 1720;
+            var buffer = 160;
+            var slideMax = totalLen - 980; 
+            var slidedDistance = 0;
+            var bannerContainer = document.getElementById('banner-container');
+            var itemContainer = document.getElementById('item-container');
+            var currentCoordinate = {
+                x: 0,
+                y: 0
+            };
+            var startCoordinate = {};
+            function throttle (func, delay) {
+                var timer;
+                var args;
+                return function () {
+                    var $this = this;
+                    args = arguments;
+                    if (!timer) {
+                        timer = setTimeout(function () {
+                            timer = null;
+                            func.apply($this, args);
+                        }, delay);
+                    }
+                }
+            }
+            function getDirection () {
+
+            }
+            function checkNeedBounce (coordinate) {
+                // var distanceX = startCoordinate.x - coordinate.x;
+                // slidedDistance = slidedDistance + distanceX;
+                // console.log('slidedDistance', slidedDistance);
+                // if (slidedDistance >= slideMax) {
+                //     console.log('bounce');
+                // }
+                if (bannerContainer.scrollWidth - 980 - 100 <= bannerContainer.scrollLeft) {
+                    console.log('bounce');
+                    itemContainer.className = 'bounce';
+                    // Promise.resolve().then(function () {
+                    //     itemContainer.className = '';
+                    // });
+                }
+            }
+            function handleTouchStart (e) {
+                var touchInfo = e.targetTouches[0];
+                startCoordinate.x = touchInfo.screenX;
+                startCoordinate.y = touchInfo.screenY;
+            }
+            function handleTouchMove (e) {
+                var touchInfo = e.targetTouches[0];
+                console.log(touchInfo.screenX, touchInfo.screenY);
+            }
+            function handleTouchEnd (e) {
+                var touchInfo = e.changedTouches[0];
+                console.log(touchInfo.screenX, touchInfo.screenY);
+                checkNeedBounce({
+                    x: touchInfo.screenX,
+                    y: touchInfo.screenY
+                });
+            }
+            bannerContainer.addEventListener('touchstart', handleTouchStart);
+            bannerContainer.addEventListener('touchmove', throttle(handleTouchMove, 500));
+            bannerContainer.addEventListener('touchend', handleTouchEnd);        
+        </script>
+    </body>
+</html>

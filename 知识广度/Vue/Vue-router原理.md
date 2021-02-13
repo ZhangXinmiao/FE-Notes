@@ -1,0 +1,5 @@
+- histroy模式：监听浏览器的histroychange
+  - 利用Histroy.pushState()添加一条记录、Histroy.replaceState()替换当前记录，**但是不会刷新页面**
+  - 使用pushState之前，先做了页面组件刷新，这样模拟出了页面跳转的行为
+  - 用户在刷新或者后退的时候，因为用了popstate来监听url变化，这时候就会触发，**注意：histroy.pushState和histroy.replaceState是不会触发popstate的**
+- hash模式:hash变化不会刷新页面，监听onhashchange事件

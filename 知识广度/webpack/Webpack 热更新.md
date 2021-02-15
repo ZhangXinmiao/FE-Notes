@@ -1,1 +1,1 @@
-webpack hmr 原理：https://zhuanlan.zhihu.com/p/30669007
+webpack hmr 原理：https://zhuanlan.zhihu.com/p/30669007SingletonSingleton

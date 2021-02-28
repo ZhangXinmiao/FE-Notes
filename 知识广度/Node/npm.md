@@ -8,7 +8,7 @@ npm 包的版本管理：Semver 语义化版本的版本管理
 
 npm install 发生了什么
 - 有preinstall，先执行preinstall
-- 如果有—production或者—only=prod，只安装dependencies中的包；否则dependencies和devDependence中的包都会安装
+- 如果有—production或者—only=prod，只安装dependencies中的包；否则dependencies和devDependence中的包都会安装（这一特性在精简打包产物大小的时候可能派上用场）
 - 看node_modules中有没有
 - 有，不在重新安装
 -  没有
